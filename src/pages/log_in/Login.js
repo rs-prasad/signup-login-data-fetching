@@ -14,12 +14,15 @@ const Login = () => {
   //event handlers
   const handleChange = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (name === "email") {
+      value = value.toLowerCase();
+    }
     setPersonDetail({ ...personDetail, [name]: value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const result = verifyUser(personDetail);
     if (result.verified) {
       setErrorMessage("");

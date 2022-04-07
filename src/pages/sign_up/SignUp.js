@@ -19,7 +19,9 @@ const SignUp = () => {
   const checkValidity = (detail) => {
     for (let key in detail) {
       if (detail[key] === "") {
-        setErrorMessage(key + "All is mandatory field");
+        setErrorMessage(
+          `${key[0].toUpperCase() + key.slice(1)} is mandatory field`
+        );
         return false;
       }
     }
@@ -45,7 +47,10 @@ const SignUp = () => {
   // handlers
   const handleChange = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (name === "email") {
+      value = value.toLowerCase();
+    }
     setPersonDetail({ ...personDetail, [name]: value });
   };
   const handleSubmit = (e) => {

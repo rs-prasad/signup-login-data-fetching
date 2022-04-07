@@ -20,6 +20,12 @@ const reducer = (state = {}, action) => {
     case "LOG_OUT_USER":
       return { ...state, isLoggedIn: false, currentUser: "" };
 
+    case "ADD_MANDI_DATA":
+      return { ...state, mandiData: action.payload.data };
+
+    case "MANDI_DATA_ADDED":
+      return { ...state, isMandiDataAvailable: true };
+
     default:
       return { ...state };
   }

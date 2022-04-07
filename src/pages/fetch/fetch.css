@@ -1,0 +1,41 @@
+.fetch-items-container {
+  margin: 10px 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.fetch-items-container__item {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  transition: all 0.5s ease-out;
+}
+
+.fetch-items-container__item:hover {
+  background-color: var(--background-color-2);
+}
+.fetch-items-container .item__image {
+  height: 250px;
+}
+.fetch-items-container .item__mandi-image {
+  height: 100%;
+}
+.fetch-items-container .item__info {
+  margin: 10px 0px 0px 10px;
+  line-height: 1.8;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+}
+/* status */
+.fetch-data__login-status {
+  font-size: 16px;
+  color: var(--text-color-1);
+  text-transform: uppercase;
+  margin: 10px 0px 5px 45px;
+}
+
+.fetch-data__not-authorized {
+  font-size: 18px;
+  color: rgb(148, 0, 0);
+  margin: 20px 0px 5px 45px;
+}

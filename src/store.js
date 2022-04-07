@@ -6,6 +6,8 @@ const preloadedState = {
   userList: userList,
   currentUser: "",
   isLoggedIn: false,
+  mandiData: [],
+  isMandiDataAvailable: false,
 };
 
 const store = createStore(reducer, preloadedState);

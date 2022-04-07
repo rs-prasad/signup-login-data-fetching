@@ -29,20 +29,22 @@ const Navbar = () => {
     }
   };
 
-  const handleFetchClick = () => {
-    if (store.getState().isLoggedIn) {
-      navigate("./fetch-with-auth", { replace: true });
-    } else {
-      navigate("./fetch-normal", { replace: true });
-    }
+  const handleFetchNormalClick = () => {
+    navigate("./fetch-normal", { replace: true });
+  };
+  const handleFetchAuthClick = () => {
+    navigate("./fetch-with-auth", { replace: true });
   };
 
   return (
     <nav className="navbar-container">
       <div className="navbar__company-logo">Krishi Network</div>
       <div className="navbar__btn-container">
-        <button className="navbar__fetch-btn" onClick={handleFetchClick}>
-          Fetch
+        <button className="navbar__fetch-btn" onClick={handleFetchNormalClick}>
+          Fetch Normal
+        </button>
+        <button className="navbar__fetch-btn" onClick={handleFetchAuthClick}>
+          Fetch Auth
         </button>
         <button
           className="navbar__login-signup-logout-btn"

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import React from "react";
 import store from "./store";
+import axios from "axios";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -30,9 +31,32 @@ const AppProvider = ({ children }) => {
     return { verified: true, error: null };
   };
 
+  const fetchMandiData = async () => {
+    if (store.getState().isMandiDataAvailable) return;
+    await axios
+      .get(
+        "https://api.krishi.network/mandi?lat=28.44108136&lon=77.0526054&ver=89&lang=hi&crop_id=10"
+      )
+      .then((res) => {
+        res = res.data.data.other_mandi;
+        store.dispatch({ type: "ADD_MANDI_DATA", payload: { data: res } });
+      })
+      .then(() => {
+        store.dispatch({ type: "MANDI_DATA_ADDED" });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <AppContext.Provider
-      value={{ store, addNewUser, logOutUser, loginUser, verifyUser }}
+      value={{
+        store,
+        addNewUser,
+        logOutUser,
+        loginUser,
+        verifyUser,
+        fetchMandiData,
+      }}
     >
       {children}
     </AppContext.Provider>

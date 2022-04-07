@@ -68,6 +68,12 @@
 .sign-up-form__gender span {
   margin-right: 15px;
 }
+.sign-up-form__error-message,
+.login-form__error-message {
+  color: red;
+  font-size: 12px;
+  text-align: center;
+}
 
 .sign-up__submit-btn,
 .login__submit-btn {

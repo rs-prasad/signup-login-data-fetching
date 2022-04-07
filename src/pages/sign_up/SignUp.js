@@ -1,15 +1,48 @@
 import { useState } from "react";
 import "./sign_up_login.css";
+import { useGlobalContext } from "../../contextAPI";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  //state Hooks
+  //Hooks
   const [personDetail, setPersonDetail] = useState({
     email: "",
     password: "",
     confirmPassword: "",
     gender: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+  const { store, addNewUser } = useGlobalContext();
+  const navigate = useNavigate();
 
+  // functions
+  const checkValidity = (detail) => {
+    for (let key in detail) {
+      if (detail[key] === "") {
+        setErrorMessage(key + "All is mandatory field");
+        return false;
+      }
+    }
+    if (detail.password !== detail.confirmPassword) {
+      setErrorMessage("Password did not match");
+      return false;
+    }
+
+    let userExist = false;
+    store.getState().userList.forEach((item) => {
+      if (item.email === detail.email) {
+        userExist = true;
+      }
+    });
+    if (userExist) {
+      setErrorMessage("User already Exist. Please login!");
+      return false;
+    }
+
+    setErrorMessage("");
+    return true;
+  };
+  // handlers
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -17,6 +50,10 @@ const SignUp = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (checkValidity(personDetail)) {
+      addNewUser(personDetail);
+      navigate("/login", { replace: true });
+    }
   };
 
   return (
@@ -67,7 +104,7 @@ const SignUp = () => {
                 type="radio"
                 name="gender"
                 value="Male"
-                id="sign-up__gender"
+                id="sign-up__gender-male"
                 onChange={(e) => handleChange(e)}
               />
               <span>Male</span>
@@ -75,11 +112,15 @@ const SignUp = () => {
                 type="radio"
                 name="gender"
                 value="female"
-                id="sign-up__gender"
+                id="sign-up__gender-female"
                 onChange={(e) => handleChange(e)}
               />
               <span>Female</span>
             </div>
+            {errorMessage && (
+              <p className="sign-up-form__error-message">{errorMessage}</p>
+            )}
+
             <button type="submit" className="sign-up__submit-btn">
               Sign Up
             </button>
